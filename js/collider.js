@@ -6,31 +6,19 @@ function AABB (x, y, width, height) {
 	this.height = height;
 	
 	this.intersectsAABB = function(other) {
+		this.isColliding = false;
 		if (other instanceof AABB) {
 			var oTop = other.y;
 			var oBottom = other.y + other.height;
 			var oLeft = other.x;
 			var oRight = other.x + other.width;
 			
-			console.log("Other:" + oLeft + "," + oTop + "   " + oRight + "," + oBottom);
-			
 			var tTop = this.y;
 			var tBottom = this.y + this.height;
 			var tLeft = this.x;
 			var tRight = this.x + this.width;
-			
-			console.log("This:" + tLeft + "," + tTop + "   " + tRight + "," + tBottom);
-			
-			console.log(tLeft, "<=", oRight);
-			console.log(tLeft <= oRight);
-			console.log(tRight, ">=",oLeft);
-			console.log(tRight >= oLeft);
-			console.log(tBottom, "<=",oTop);
-			console.log(tBottom <= oTop);
-			console.log(tTop, ">=",oBottom);
-			console.log(tTop >= oBottom);
-			
-			return tLeft <= oRight && tRight >= oLeft && tBottom <= oTop && tTop >= oBottom;
+
+			return tLeft <= oRight && tRight >= oLeft && tTop <= oBottom && tBottom >= oTop;
 		}
 		console.error("Error: Cannot test intersecion of non AABB!");
 		return false;
@@ -57,7 +45,7 @@ function AABB (x, y, width, height) {
 /* Shapes are best explained as pinwheels of triangles. */
 function Shape (x, y, points) {
 	this.position = createVector(x, y);
-	if (typeof points == "Array" && points.length >= 3) {
+	if (typeof points != 'undefined' && points.length >= 3) {
 		this.points = points;
 	} else {
 		console.warn("Error: Cannot initialize a shape with less than 3 points.");
@@ -68,10 +56,10 @@ function Shape (x, y, points) {
 	
 	/* Surround this shape in an AABB. */
 	this.calculateBounds = function() {
-		var xMin = 0;
-		var yMin = 0;
-		var xMax = 0;
-		var yMax = 0;
+		var xMin = this.position.x;
+		var yMin = this.position.y;
+		var xMax = this.position.x;
+		var yMax = this.position.y;
 		var self = this;
 		this.points.forEach(function(point) {
 			xMin = point.x + self.position.x < xMin ? point.x + self.position.x : xMin;
@@ -85,6 +73,8 @@ function Shape (x, y, points) {
 	
 	/* Rough collision test. Determine if a more accurate test is necessary. */
 	this.intersectsAABB = function(other) {
+		this.bounds = this.calculateBounds();
+		other.bounds = other.calculateBounds();
 		if (other instanceof Shape) {
 			return this.bounds.intersectsAABB(other.bounds);
 		} else if (other instanceof AABB) {
@@ -173,11 +163,11 @@ function Shape (x, y, points) {
 	this.draw = function() {
 		if (InputBuffer.instance.get("debug")) {
 			push();
-			translate(this.position.x, this.position.y);
 			rectMode(CORNER);
 			fill(70, 60, 90, 30);
 			stroke(70, 60, 90, 100);
-			rect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+			this.bounds.draw();
+			translate(this.position.x, this.position.y);
 			fill(120, 60, 90, 30);
 			stroke(120, 60, 90, 100);
 			beginShape();
@@ -187,6 +177,11 @@ function Shape (x, y, points) {
 			endShape(CLOSE);
 			pop();
 		}
+	}
+	
+	this.move = function(x, y) {
+		this.position = createVector(x, y);
+		this.bounds = this.calculateBounds();
 	}
 	
 	this.bounds = this.calculateBounds();

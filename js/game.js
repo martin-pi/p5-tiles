@@ -56,7 +56,10 @@ function initialize() {
 	
 	shape1 = new Shape(100, 200);
 	
-	shape2 = new Shape(100, 220);
+	shape2 = new Shape(110, 220);
+	
+	shape3 = new Shape(100, 300);
+	mouseShape = new Shape(mouseX, mouseY, [createVector(-5, 0), createVector(0, 5), createVector(5, 0), createVector(0, -5)]);
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -130,6 +133,10 @@ function draw() {
 	
 	shape1.draw();
 	shape2.draw();
+	shape3.draw();
+	
+	mouseShape.move(mouseX, mouseY);
+	mouseShape.draw();
 }
 
 function windowResized() {
