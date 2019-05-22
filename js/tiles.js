@@ -8,6 +8,19 @@ let tileWidth = 32; // Size in Px to draw tiles onscreen.
 let tileHeight = 32;
 let animationSpeed = 8; // Number of ingame frames to wait between tile animation steps.
 
+// Prototype for customizeable json tile definitions. allows users to search by name or blob, and build an entire fully featured tile with the results.
+jsonTileTest = {
+	name: 'tree',
+	blob: 0,
+	positions: [{x:1, y:1}, {x:0, y:1}],
+	selection: 'sequential', // sequential, random, default
+	collider: {
+		type: 'shape', // shape, aabb, circle
+		points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}, {x:0, y:1}], // Numbers as a (0.0-1.0) percentage of tileWidth and tileHeight
+		collision: 'solid' // solid, dynamic, platform, or nonsolid
+	}
+};
+
 /* Maps the 47 blob tile values to positions in blob.png */
 let blob = new Map();
 blob.set(16, [[0, 32]]);
@@ -111,9 +124,6 @@ tiles.set("w", [28, 31]);
 tiles.set("x", [29, 31]);
 tiles.set("y", [30, 31]);
 tiles.set("z", [31, 31]);
-
-
-
 
 tiles.set("grass1", [1, 0]);
 tiles.set("gravel", [2, 0]);
