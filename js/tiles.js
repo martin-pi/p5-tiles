@@ -84,7 +84,13 @@ class SpriteCollection {
 		}
 		return null;
 	}
+	
+	has(content) {
+		return this.nameMap.has(content) || this.blobMap.has(content)
+	}
 }
+const spriteCollection = new SpriteCollection();
+Object.freeze(spriteCollection);
 
 /*  Defines a Tile and allows it to be drawn. 
  *  Provide content with the name of a sprite from the tiles map to draw it.
@@ -107,20 +113,12 @@ class Tile2 {
 	}
 	
 	setSprite(sprite, selection) {
-		if (tiles.has(sprite)) {
-			this.sprite = sprite;
-			this.spriteX = tiles.get(sprite)[0];
-			this.spriteY = tiles.get(sprite)[1];
-		} else if (blob.has(sprite)) {
-			this.sprite = sprite;
-			//TODO error checking for out of bounds alts.
-			this.spriteX = blob.get(sprite)[selection][0];
-			this.spriteY = blob.get(sprite)[selection][1];
+		if (spriteCollection.has(sprite)) {
+			this.sprite = new Sprite(spriteCollection.get(sprite), selection);
+			this.spriteX = this.sprite.position.x;
+			this.spriteY = this.sprite.position.y;
 		} else {
 			console.error("Error: '" + sprite + "' is not a valid sprite name.");
-			this.sprite = "error";
-			this.spriteX = tiles.get("error")[0];
-			this.spriteY = tiles.get("error")[1];
 		}
 	}
 	

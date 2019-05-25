@@ -42,6 +42,50 @@ function AABB (x, y, width, height) {
 	}
 };
 
+/*  Axis Aligned Bounding Boxes are quick and simple rectangular colliders. 
+ *  This implementation does not store its own position.
+ */
+function PositionlessAABB (width, height) {
+	this.width = width;
+	this.height = height;
+	
+	this.intersectsAABB = function(x, y, other, otherX, otherY) {
+		this.isColliding = false;
+		if (other instanceof PositionlessAABB) {
+			var oTop = otherY;
+			var oBottom = otherY + other.height;
+			var oLeft = otherX;
+			var oRight = otherX + other.width;
+			
+			var tTop = y;
+			var tBottom = y + this.height;
+			var tLeft = x;
+			var tRight = x + this.width;
+
+			return tLeft <= oRight && tRight >= oLeft && tTop <= oBottom && tBottom >= oTop;
+		}
+		console.error("Error: Cannot test intersecion of non AABB!");
+		return false;
+	}
+	
+	this.containsPoint = function(x, y, pointX, pointY) {
+		return pointX < (x + this.width) && pointX >= x && pointY < (y + this.height) && pointY >= y;
+	}
+	
+	/* Only useful for debug information. Draws a yellow-green box. */
+	this.draw = function(x, y) {
+		if (InputBuffer.instance.get("debug")) {
+			push();
+			translate(x, y);
+			rectMode(CORNER);
+			fill(70, 60, 90, 30);
+			stroke(70, 60, 90, 100);
+			rect(0, 0, this.width, this.height);
+			pop();
+		}
+	}
+};
+
 /* Shapes are best explained as pinwheels of triangles. */
 function Shape (x, y, points) {
 	this.position = createVector(x, y);
@@ -74,8 +118,8 @@ function Shape (x, y, points) {
 	/* Rough collision test. Determine if a more accurate test is necessary. */
 	this.intersectsAABB = function(other) {
 		this.bounds = this.calculateBounds();
-		other.bounds = other.calculateBounds();
 		if (other instanceof Shape) {
+			other.bounds = other.calculateBounds();
 			return this.bounds.intersectsAABB(other.bounds);
 		} else if (other instanceof AABB) {
 			return this.bounds.intersectsAABB(other);
@@ -184,6 +228,147 @@ function Shape (x, y, points) {
 		this.bounds = this.calculateBounds();
 	}
 	
+	this.bounds = this.calculateBounds();
+	this.edges = this.calculateEdges();
+	this.normals = this.calculateNormals();
+};
+
+/* Shapes are best explained as pinwheels of triangles.
+ *  This implementation does not store its own position.
+ */
+function PositionlessShape (points) {
+	if (typeof points != 'undefined' && points.length >= 3) {
+		this.points = points;
+	} else {
+		console.warn("Error: Cannot initialize a shape with less than 3 points.");
+		this.points = new Array(createVector(-20, 0), createVector(0, 20), createVector(20, 0), createVector(0, -20));
+	}
+	
+	/* Surround this shape in an AABB. */
+	this.calculateBounds = function() {
+		var xMin = 0;
+		var yMin = 0;
+		var xMax = 0;
+		var yMax = 0;
+		this.points.forEach(function(point) {
+			xMin = point.x < xMin ? point.x : xMin;
+			xMax = point.x >= xMax ? point.x : xMax;
+			yMin = point.y < yMin ? point.y : yMin;
+			yMax = point.y >= yMax ? point.y : yMax;
+		});
+		
+		return new AABB(xMin, yMin, xMax - xMin, yMax - yMin);
+	}
+	
+	/* Rough collision test. Determine if a more accurate test is necessary. */
+	this.intersectsAABB = function(x, y, other, otherX, otherY) {
+		this.bounds = this.calculateBounds();
+		if (other instanceof PositionlessShape) {
+			other.bounds = other.calculateBounds();
+			return this.bounds.intersectsAABB(x, y, other.bounds, otherX, otherY);
+		} else if (other instanceof PositionlessAABB) {
+			return this.bounds.intersectsAABB(x, y, other, otherX, otherY);
+		} else {
+			console.error("Error: Cannot test AABB collision on a non-Shape.");
+		}
+	}
+	
+	/* Calculate edges between each couple of points in this shape. */
+	this.calculateEdges = function() {
+		var edges = new Array();
+		for (var i = 0; i < this.points.length; i++) {
+			// edges[i] = points[i + 1] - points[i]
+			edges.push(this.points[(i + 1) % this.points.length].copy().sub(this.points[i]));
+		}
+		return edges;
+	}
+	
+	/* Calculate all normal vectors for the edges of this shape. */
+	this.calculateNormals = function() {
+		var edges = this.calculateEdges();
+		var normals = new Array();
+		edges.forEach(function(edge) { 
+			normals.push(createVector(edge.y, -edge.x).normalize());
+		});
+		return normals;
+	}
+		
+	/* Project this 2 dimensional shape onto a single dimension */
+	this.project = function(x, y, axis) {
+		position = createVector(x, y);
+		var min = this.points[0].copy().add(position).dot(axis);
+		var max = this.points[0].copy().add(position).dot(axis);
+			
+		for (var i = 1; i < this.points.length; i++) {
+			var dot = this.points[i].copy().add(position).dot(axis);
+			
+			min = dot < min ? dot : min;
+			max = dot > max ? dot : max;
+		}
+		return [min, max];
+	}
+	
+	/*  Hyperplane Separation Theorem 
+	 *  Returns null if the shapes aren't colliding. Returns an mtv if they are.
+	 */
+	this.intersectsShape = function(x, y, other, otherX, otherY) {
+		var axes = this.normals.concat(other.normals);
+		console.log(axes);
+		var minOverlap = Number.MAX_VALUE;
+		var minVector = null;
+		
+		var self = this;
+		axes.forEach(function(axis) {
+			projection = self.project(x, y, axis);
+			var min = projection[0];
+			var max = projection[1];
+			
+			otherProjection = other.project(otherX, otherY, axis);
+			var oMin = otherProjection[0];
+			var oMax = otherProjection[1];
+			
+			// Determine overlap between the two projections.
+			if (!(min <= oMax && oMin <= max)) {
+				return null; // No collision! Stop here!
+			} else {
+				// Find the mtv.
+				var overlap = Math.max(0, Math.min(max, oMax) - Math.max(min, oMin));
+				
+				if (overlap < minOverlap) {
+					minOverlap = overlap;
+					
+					// overlap could actually be negative, if so flip it.
+					if (min < oMin) {
+						minVector = axis.copy().setMag(overlap);
+					} else {
+						minVector = axis.copy().setMag(-overlap);
+					}
+				}
+			}
+		});
+		
+		return minVector;
+	}
+	
+	this.draw = function(x, y) {
+		if (InputBuffer.instance.get("debug")) {
+			push();
+			rectMode(CORNER);
+			fill(70, 60, 90, 30);
+			stroke(70, 60, 90, 100);
+			this.bounds.draw();
+			translate(x, y);
+			fill(120, 60, 90, 30);
+			stroke(120, 60, 90, 100);
+			beginShape();
+			this.points.forEach(function(point) {
+				vertex(point.x, point.y);
+			});
+			endShape(CLOSE);
+			pop();
+		}
+	}
+		
 	this.bounds = this.calculateBounds();
 	this.edges = this.calculateEdges();
 	this.normals = this.calculateNormals();
