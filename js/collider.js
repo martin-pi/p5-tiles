@@ -123,7 +123,7 @@ function Shape (x, y, points) {
 	 */
 	this.intersectsShape = function(other) {
 		var axes = this.normals.concat(other.normals);
-		
+		console.log(axes);
 		var minOverlap = Number.MAX_VALUE;
 		var minVector = null;
 		

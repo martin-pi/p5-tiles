@@ -71,6 +71,8 @@ function preload() {
 }
 
 function setup() {
+	var canvas = createCanvas(width, height);
+	canvas.parent('game');
 	initialize();
 	frameRate(60);
 	colorMode(HSB, 360, 100, 100, 100);

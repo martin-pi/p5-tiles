@@ -8,18 +8,168 @@ let tileWidth = 32; // Size in Px to draw tiles onscreen.
 let tileHeight = 32;
 let animationSpeed = 8; // Number of ingame frames to wait between tile animation steps.
 
-// Prototype for customizeable json tile definitions. allows users to search by name or blob, and build an entire fully featured tile with the results.
-jsonTileTest = {
+/*{
 	name: 'tree',
-	blob: 0,
+	blob: -1,
 	positions: [{x:1, y:1}, {x:0, y:1}],
-	selection: 'sequential', // sequential, random, default
+	selectionType: 'sequential', // sequential, random, default
 	collider: {
-		type: 'shape', // shape, aabb, circle
+		type: 'shape', // shape, aabb, circle, none
 		points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}, {x:0, y:1}], // Numbers as a (0.0-1.0) percentage of tileWidth and tileHeight
-		collision: 'solid' // solid, dynamic, platform, or nonsolid
+		collision: 'solid' // solid, dynamic, platform
 	}
-};
+}*/
+class Sprite {
+	constructor(representation, selection) {
+		this.name = representation.name;
+		this.blob = representation.blob;
+		
+		// Determine the specific tile that this sprite references.
+		switch(representation.selectionType) {
+			default:
+			case 'sequential':
+				if (selection >= 0 && selection < representation.positions.length) {
+					break;
+				}
+				selection = 0;
+				break;
+			case 'random':
+				selection = Math.floor(Math.random() * representation.positions.length);
+				break;
+		}
+		this.position = representation.positions[selection];
+		
+		// Create the collider that this tile uses.
+		switch(representation.collider.type) { 
+			case 'shape':
+				var points = new Array();
+				representation.collider.points.forEach(function(point) {
+					points.push(createVector(point.x, point.y));
+				});
+				this.collider = new Shape(0, 0, points);
+				break;
+			case 'aabb':
+				this.collider = new AABB(0, 0, representation.width, representation.height);
+				break;
+			case 'circle':
+				this.collider = undefined;
+				console.error("TODO: Implement Circle Collision");
+				break;
+			case 'none':
+			default:
+				this.collider = undefined;
+		}
+	}
+}
+
+class SpriteCollection {
+	constructor() {
+		this.nameMap = new Map();
+		this.blobMap = new Map();
+		var self = this;
+		SpriteJson.forEach(function(sprite) { // TODO: whenever proper hosting is figured out, use actual json with read/write
+			if (sprite.blob >= 0) {
+				self.blobMap.set(sprite.blob, sprite);
+			}
+			self.nameMap.set(sprite.name, sprite);
+		});
+	}
+	
+	get(content) {
+		if (this.nameMap.has(content)) {
+			return this.nameMap.get(content);
+		}
+		if (this.blobMap.has(content)) {
+			return this.blobMap.get(content);
+		}
+		return null;
+	}
+}
+
+/*  Defines a Tile and allows it to be drawn. 
+ *  Provide content with the name of a sprite from the tiles map to draw it.
+ *  Provide an array of sprite names to create an animated tile. */
+class Tile2 {
+	constructor(content, selection) {
+		this.animated = Array.isArray(content);
+		this.selection = typeof selection !== 'undefined' ? selection : 0;
+		this.sprite = null;
+		this.sprites = null;
+		this.spriteIndex = null;
+		
+		if (this.animated) {
+			this.sprites = content;
+			this.spriteIndex = 0;
+			this.setSprite(this.sprites[this.spriteIndex]);
+		} else {
+			this.setSprite(content, this.alternate);
+		}
+	}
+	
+	setSprite(sprite, selection) {
+		if (tiles.has(sprite)) {
+			this.sprite = sprite;
+			this.spriteX = tiles.get(sprite)[0];
+			this.spriteY = tiles.get(sprite)[1];
+		} else if (blob.has(sprite)) {
+			this.sprite = sprite;
+			//TODO error checking for out of bounds alts.
+			this.spriteX = blob.get(sprite)[selection][0];
+			this.spriteY = blob.get(sprite)[selection][1];
+		} else {
+			console.error("Error: '" + sprite + "' is not a valid sprite name.");
+			this.sprite = "error";
+			this.spriteX = tiles.get("error")[0];
+			this.spriteY = tiles.get("error")[1];
+		}
+	}
+	
+	/* 	Can only be run after preload completes. 
+	 * 	x and y define where in the environment to draw this tile.
+	 * 	scale is optional, and will size up the sprite. */
+	draw(x, y, scale) {
+		scale = typeof scale != 'undefined' ? scale : 1;
+		push();
+		//tint(hue, saturation, lightness, alpha); //Disabled due to performance hit.
+		noSmooth();
+		translate(x, y);
+		image(sprites,
+			[sx = 0],
+			[sy = 0],
+			[sWidth = tileWidth * scale],
+			[sHeight = tileWidth * scale],
+			[dx = (spriteWidth + spriteSheetSpacing) * this.spriteX + spriteSheetXOffset],
+			[dy = (spriteHeight + spriteSheetSpacing) * this.spriteY + spriteSheetYOffset],
+			[spriteWidth],
+			[spriteHeight]);
+		pop();
+		
+		if (InputBuffer.instance.get("debug")) { // Draw debug information.
+			push();
+			noFill();
+			stroke(330, 60, 90, 100);
+			rect(x, y, tileWidth * scale, tileHeight * scale);
+			pop();
+		}
+	}
+	
+	/*  Only does anything if animated. Progresses the animation forward. 
+	 *  If you want to pause animation, don't call this.
+	 *  Provide an index between 0 and the number of frames if you just want to skip to a certain frame. */
+	step(index) {
+		if (typeof index != 'undefined') {
+			if (index >= 0 && index < sprites.length) {
+				this.spriteIndex = index;
+				this.setSprite(this.sprites[this.spriteIndex]);
+			}
+		} else {
+			if (this.animated && frameCount % animationSpeed == 0) {
+				this.spriteIndex = (this.spriteIndex + 1) % this.sprites.length;
+				this.setSprite(this.sprites[this.spriteIndex]);
+			}
+		}
+	}
+}
 
 /* Maps the 47 blob tile values to positions in blob.png */
 let blob = new Map();
