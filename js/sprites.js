@@ -7,9 +7,8 @@ let SpriteJson = [
 		positions: [{x:23, y:0}],
 		colliders: [{
 			type: 'aabb', // shape, aabb, circle, none
-			width: 1;
-			height: 1;
-			points: [], // Numbers as a (0.0-1.0) percentage of tileWidth and tileHeight
+			width: 1,
+			height: 1,
 			collision: 'solid' // solid, dynamic, platform, liquid?
 		}]
 	},
@@ -19,11 +18,7 @@ let SpriteJson = [
 		selectionType: 'default',
 		positions: [{x:0, y:0}],
 		colliders: [{
-			type: 'none',
-			width: 0;
-			height: 0;
-			points: [],
-			collision: 'solid'
+			type: 'none'
 		}]
 	},
 	{
@@ -32,11 +27,7 @@ let SpriteJson = [
 		selectionType: 'default',
 		positions: [{x:20, y:22}],
 		colliders: [{
-			type: 'none',
-			width: 0;
-			height: 0;
-			points: [],
-			collision: 'solid'
+			type: 'none'
 		}]
 	},
 	{ 
@@ -55,6 +46,7 @@ let SpriteJson = [
 			collision: 'solid'
 		}]
 	},
+	//---------------------------------------------------------------
 	{
 		name: undefined,
 		blob: 16,
@@ -62,9 +54,604 @@ let SpriteJson = [
 		positions: [{x:0, y:32}],
 		colliders: [{
 			type: 'aabb',
-			width: 1;
-			height: 1;
-			points: [],
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 28,
+		selectionType: 'sequential',
+		positions: [{x:0, y:32}, {x: 20, y: 3}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:1, y:0}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 124,
+		selectionType: 'sequential',
+		positions: [{x:2, y:32}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 112,
+		selectionType: 'sequential',
+		positions: [{x:3, y:32}, {x: 21, y: 3}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 20,
+		selectionType: 'sequential',
+		positions: [{x:4, y:32}, {x: 20, y: 3}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:1, y:0}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 84,
+		selectionType: 'sequential',
+		positions: [{x:5, y:32}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 80,
+		selectionType: 'sequential',
+		positions: [{x:6, y:32}, {x: 21, y: 3}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 247,
+		selectionType: 'sequential',
+		positions: [{x:7, y:32}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 215,
+		selectionType: 'sequential',
+		positions: [{x:8, y:32}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 223,
+		selectionType: 'sequential',
+		positions: [{x:9, y:32}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	//---------------------------------------------------------------
+	{
+		name: undefined,
+		blob: 17,
+		selectionType: 'sequential',
+		positions: [{x:0, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 31,
+		selectionType: 'sequential',
+		positions: [{x:1, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 255,
+		selectionType: 'sequential',
+		positions: [{x:2, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 241,
+		selectionType: 'sequential',
+		positions: [{x:3, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 21,
+		selectionType: 'sequential',
+		positions: [{x:4, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 0,
+		selectionType: 'sequential',
+		positions: [{x:5, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 81,
+		selectionType: 'sequential',
+		positions: [{x:6, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 245,
+		selectionType: 'sequential',
+		positions: [{x:7, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 85,
+		selectionType: 'sequential',
+		positions: [{x:8, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 95,
+		selectionType: 'sequential',
+		positions: [{x:9, y:33}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	//---------------------------------------------------------------
+	{
+		name: undefined,
+		blob: 1,
+		selectionType: 'sequential',
+		positions: [{x:0, y:34}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 7,
+		selectionType: 'sequential',
+		positions: [{x:0, y:34}, {x: 20, y: 4}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 199,
+		selectionType: 'sequential',
+		positions: [{x:0, y:34}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 193,
+		selectionType: 'sequential',
+		positions: [{x:3, y:34}, {x: 21, y: 4}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 5,
+		selectionType: 'sequential',
+		positions: [{x:4, y:34}, {x: 20, y: 4}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 69,
+		selectionType: 'sequential',
+		positions: [{x:5, y:34}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 65,
+		selectionType: 'sequential',
+		positions: [{x:6, y:34}, {x: 21, y: 4}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		},
+		{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 253,
+		selectionType: 'sequential',
+		positions: [{x:7, y:34}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 125,
+		selectionType: 'sequential',
+		positions: [{x:8, y:34}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 127,
+		selectionType: 'sequential',
+		positions: [{x:9, y:34}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	//---------------------------------------------------------------
+	{
+		name: undefined,
+		blob: 4,
+		selectionType: 'sequential',
+		positions: [{x:1, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 68,
+		selectionType: 'sequential',
+		positions: [{x:2, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 64,
+		selectionType: 'sequential',
+		positions: [{x:3, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 116,
+		selectionType: 'sequential',
+		positions: [{x:4, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 209,
+		selectionType: 'sequential',
+		positions: [{x:5, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 23,
+		selectionType: 'sequential',
+		positions: [{x:6, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 92,
+		selectionType: 'sequential',
+		positions: [{x:7, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 213,
+		selectionType: 'sequential',
+		positions: [{x:8, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 87,
+		selectionType: 'sequential',
+		positions: [{x:9, y:35}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	//---------------------------------------------------------------
+	{
+		name: undefined,
+		blob: 221,
+		selectionType: 'sequential',
+		positions: [{x:2, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 119,
+		selectionType: 'sequential',
+		positions: [{x:3, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 29,
+		selectionType: 'sequential',
+		positions: [{x:4, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 71,
+		selectionType: 'sequential',
+		positions: [{x:5, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 197,
+		selectionType: 'sequential',
+		positions: [{x:6, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 113,
+		selectionType: 'sequential',
+		positions: [{x:7, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 117,
+		selectionType: 'sequential',
+		positions: [{x:8, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 93,
+		selectionType: 'sequential',
+		positions: [{x:9, y:36}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
 			collision: 'solid'
 		}]
 	},
