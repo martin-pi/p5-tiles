@@ -686,7 +686,7 @@ class Sprite {
 		switch(representation.colliders[selection].type) { 
 			case 'shape':
 				var points = new Array();
-				representation.collider[selection].points.forEach(function(point) {
+				representation.colliders[selection].points.forEach(function(point) {
 					points.push(createVector(point.x, point.y));
 				});
 				this.collider = new PositionlessShape(points);

@@ -5,8 +5,8 @@ console.log("Game\nVersion " + version);
 // Game-wide variables
 
 // Creating tiles with and without animation
-let cursor = new Tile("cursor2");
-let error = new Tile("error");
+let cursor = new Tile2("cursor2");
+let error = new Tile2("error");
 let tree = new Tile(["tree", "grass1", "grass2", "grass3"]);
 let exampleWalls = new Tile(["s_topleft","s_top","s_topright","s_left","s_right","s_bottomleft","s_bottom","s_bottomright","s_angle_topleft","s_angle_topright","s_angle_bottomleft","s_angle_bottomright","s_decor_center","s_decor_bottomright","s_decor_bottomleft","s_decor_topright","s_decor_topleft"]);
 let character = new Tile(["char_a_stand_l","char_a_walk1_l","char_a_walk2_l","char_a_jump_l","char_a_fall_l","char_a_sleep_l"]);
@@ -51,7 +51,9 @@ let characterProp = new Character(64, 128);
 // Physics Colliders
 let aabb1 = new AABB(128, 128, 64, 32);
 
-let shape1;
+let tile2 = new Tile2('error');
+let tile3 = new Tile2(['error', 'tree']);
+
 function initialize() {
 	
 	shape1 = new Shape(100, 200);
@@ -139,6 +141,10 @@ function draw() {
 	
 	mouseShape.move(mouseX, mouseY);
 	mouseShape.draw();
+	
+	tile2.draw(64, 300);
+	tile3.step();
+	tile3.draw(96, 300);
 }
 
 function windowResized() {
