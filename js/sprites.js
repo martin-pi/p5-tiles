@@ -1,27 +1,73 @@
 /* Because browsers won't load json locally due to xss worries, approximates json for later. */
 let SpriteJson = [
 	{ // Prototype for customizeable json tile definitions. allows users to search by name or blob, and build an entire fully featured tile with the results.
-		name: 'tree',
+		name: 'error',
 		blob: -1,
-		positions: [{x:1, y:1}, {x:0, y:1}],
-		selectionType: 'sequential', // sequential, random, default
-		collider: {
-			type: 'shape', // shape, aabb, circle
-			points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}, {x:0, y:1}], // Numbers as a (0.0-1.0) percentage of tileWidth and tileHeight
-			collision: 'solid' // solid, dynamic, platform, or none
-		}
+		selectionType: 'default', // sequential (input a position index.), random (disregard input, return positions[random]), default (positions[0])
+		positions: [{x:23, y:0}],
+		colliders: [{
+			type: 'aabb', // shape, aabb, circle, none
+			width: 1;
+			height: 1;
+			points: [], // Numbers as a (0.0-1.0) percentage of tileWidth and tileHeight
+			collision: 'solid' // solid, dynamic, platform, liquid?
+		}]
+	},
+	{
+		name: 'empty',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:0, y:0}],
+		colliders: [{
+			type: 'none',
+			width: 0;
+			height: 0;
+			points: [],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'cursor2',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:20, y:22}],
+		colliders: [{
+			type: 'none',
+			width: 0;
+			height: 0;
+			points: [],
+			collision: 'solid'
+		}]
 	},
 	{ 
 		name: 'tree',
 		blob: -1,
-		positions: [{x:1, y:1}, {x:0, y:1}],
 		selectionType: 'sequential',
-		collider: {
+		positions: [{x:1, y:1}, {x:0, y:1}],
+		colliders: [{
 			type: 'shape',
 			points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}, {x:0, y:1}],
 			collision: 'solid'
-		}
-	}
+		},
+		{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: undefined,
+		blob: 16,
+		selectionType: 'sequential',
+		positions: [{x:0, y:32}],
+		colliders: [{
+			type: 'aabb',
+			width: 1;
+			height: 1;
+			points: [],
+			collision: 'solid'
+		}]
+	},
 ];
 
 /*  This is basically a factory. 
@@ -46,19 +92,20 @@ class Sprite {
 				selection = Math.floor(Math.random() * representation.positions.length);
 				break;
 		}
+		
 		this.position = representation.positions[selection];
 		
 		// Create the collider that this tile uses.
-		switch(representation.collider.type) { 
+		switch(representation.colliders[selection].type) { 
 			case 'shape':
 				var points = new Array();
-				representation.collider.points.forEach(function(point) {
+				representation.collider[selection].points.forEach(function(point) {
 					points.push(createVector(point.x, point.y));
 				});
 				this.collider = new PositionlessShape(points);
 				break;
 			case 'aabb':
-				this.collider = new PositionlessAABB(representation.width, representation.height);
+				this.collider = new PositionlessAABB(representation.colliders[selection].width, representation.colliders[selection].height);
 				break;
 			case 'circle':
 				this.collider = undefined;
@@ -81,7 +128,9 @@ class SpriteCollection {
 			if (sprite.blob >= 0) {
 				self.blobMap.set(sprite.blob, sprite);
 			}
-			self.nameMap.set(sprite.name, sprite);
+			if (typeof sprite.name !== 'undefined') {
+				self.nameMap.set(sprite.name, sprite);
+			}
 		});
 	}
 	
