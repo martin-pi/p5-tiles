@@ -368,7 +368,7 @@ let SpriteJson = [
 		name: undefined,
 		blob: 28,
 		selectionType: 'sequential',
-		positions: [{x:0, y:32}, {x: 20, y: 3}],
+		positions: [{x:1, y:32}, {x: 20, y: 3}],
 		colliders: [{
 			type: 'aabb',
 			width: 1,
@@ -630,7 +630,7 @@ let SpriteJson = [
 		name: undefined,
 		blob: 7,
 		selectionType: 'sequential',
-		positions: [{x:0, y:34}, {x: 20, y: 4}],
+		positions: [{x:1, y:34}, {x: 20, y: 4}],
 		colliders: [{
 			type: 'aabb',
 			width: 1,
@@ -647,7 +647,7 @@ let SpriteJson = [
 		name: undefined,
 		blob: 199,
 		selectionType: 'sequential',
-		positions: [{x:0, y:34}],
+		positions: [{x:2, y:34}],
 		colliders: [{
 			type: 'aabb',
 			width: 1,

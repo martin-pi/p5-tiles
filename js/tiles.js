@@ -24,7 +24,7 @@ class Tile2 {
 			this.spriteIndex = 0;
 			this.setSprite(this.sprites[this.spriteIndex]);
 		} else {
-			this.setSprite(content, this.alternate);
+			this.setSprite(content, this.selection);
 		}
 	}
 	
@@ -400,9 +400,7 @@ function TileGroup (content, height) {
 	this.step = function() {
 		for (var i = 0; i < this.array.length; i++) {
 			for (var j = 0; j < this.array[i].length; j++) {
-				if (this.array[i][j].animated) {
-					this.array[i][j].step();
-				}
+				this.array[i][j].step();
 			}
 		}
 	};
@@ -469,7 +467,7 @@ function BlobFactory(content) {
 	
 	for (var i = 0; i < content.length; i++) {
 		for (var j = 0; j < content[i].length; j++) {
-			var tile = new Tile(this.getBlob(i, j), this.getPoint(i, j) - 1);
+			var tile = new Tile2(this.getBlob(i, j), this.getPoint(i, j) - 1);
 			this.tileGroup.set(tile, i, j);
 		}
 	}

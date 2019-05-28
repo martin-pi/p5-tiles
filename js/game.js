@@ -16,13 +16,8 @@ let group = new TileGroup(2, 3);
 group.set(error, 0, 0);
 group.set(tree, 0, 2);
 group.set(error, 1, 0);
-var wallArr = [
-	[new Tile("s_topleft"), new Tile("s_left"), new Tile("s_bottomleft")],
-	[new Tile("s_top"), new Tile("s_decor_center"), new Tile("s_bottom")],
-	[new Tile("s_top"), new Tile("s_decor_bottomright"), new Tile("s_bottom")],
-	[new Tile("s_topright"), new Tile("s_right"), new Tile("s_angle_bottomright")]
-];
-let wallGroup = new TileGroup(wallArr);
+
+let wallGroup;
 
 let platform;
 let platform2;
@@ -40,9 +35,7 @@ let spring;
 
 
 
-// Working with BlobFactories
-var blobArr = [[1,1,0,1,0], [0,1,1,1,0], [2,1,1,1,2], [1,0,2,1,1], [1,0,0,1,0], [1,1,1,0,1], [1,1,1,1,0], [2,1,1,0,1]];
-let blobAssm = new BlobFactory(blobArr); // This is a TileGroup, not a prop or BlobFactory!
+let blobAssm;
 
 // Creating complex Characters
 let characterProp = new Character(64, 128);
@@ -74,6 +67,17 @@ function initialize() {
 	
 	shape3 = new Shape(100, 300);
 	mouseShape = new Shape(mouseX, mouseY, [createVector(-5, 0), createVector(0, 5), createVector(5, 0), createVector(0, -5)]);
+
+	var wallArr = [
+		[new Tile2(28, 0), new Tile2(31, 0), new Tile2(7, 0)],
+		[new Tile2(124, 0), new Tile2(255, 0), new Tile2(199, 0)],
+		[new Tile2(124, 0), new Tile2(247, 0), new Tile2(199, 0)],
+		[new Tile2(112, 0), new Tile2(241, 0), new Tile2(193, 1)]
+	];
+	wallGroup = new TileGroup(wallArr);
+	
+	var blobArr = [[1,1,0,1,0], [0,1,1,1,0], [2,1,1,1,2], [1,0,2,1,1], [1,0,0,1,0], [1,1,1,0,1], [1,1,1,1,0], [2,1,1,0,1]];
+	blobAssm = new BlobFactory(blobArr); // This is a TileGroup, not a prop or BlobFactory!
 }
 
 // ------------------------------------------------------------------------------------------------
