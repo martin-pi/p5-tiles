@@ -8,7 +8,7 @@ function Decor (x, y, content) {
 	if (this.isGroup) {
 		this.tileGroup = new TileGroup(content);
 	} else {
-		this.tile = new Tile(content);
+		this.tile = new Tile2(content);
 	}
 	
 	this.draw = function() {
@@ -29,9 +29,9 @@ function Ladder (x, y, height) {
 	this.y = y;
 	
 	this.tileGroup = new TileGroup(1, height);
-	this.tileGroup.set(new Tile("s_ladder_top"), 0, 0);
+	this.tileGroup.set(new Tile2("ladder_top"), 0, 0);
 	for (var i = 1; i < height; i++) {
-		this.tileGroup.set(new Tile("s_ladder"), 0, i);
+		this.tileGroup.set(new Tile2("ladder"), 0, i);
 	}
 	
 	this.draw = function() {
@@ -69,7 +69,7 @@ function Spring (x, y) {
 
 Spring.active = function (spring) {
 	this.spring = spring;
-	this.tile = new Tile(["s_spring2", "s_spring3", "s_spring2", "s_spring1"]);
+	this.tile = new Tile2(["spring2", "spring3", "spring2", "spring1"]);
 	
 	this.draw = function(x, y) {
 		this.tile.draw(x, y);
@@ -85,7 +85,7 @@ Spring.active = function (spring) {
 }
 Spring.inactive = function (spring) {
 	this.spring = spring;
-	this.tile = new Tile("s_spring1");
+	this.tile = new Tile2("spring1");
 	
 	this.draw = function(x, y) {
 		this.tile.draw(x, y);
@@ -111,12 +111,12 @@ function Platform (x, y, width, destinations, speed, wait) {
 	this.y = y;
 	this.tileGroup = new TileGroup(width, 1);
 	if (width == 1) {
-		this.tileGroup.set(new Tile("s_platform_middle"), 0, 0);
+		this.tileGroup.set(new Tile2("platform_middle"), 0, 0);
 	} else {
-		this.tileGroup.set(new Tile("s_platform_left"), 0, 0);
-		this.tileGroup.set(new Tile("s_platform_right"), width - 1, 0);
+		this.tileGroup.set(new Tile2("platform_left"), 0, 0);
+		this.tileGroup.set(new Tile2("platform_right"), width - 1, 0);
 		for (var i = 1; i < width - 1; i++) {
-			this.tileGroup.set(new Tile("s_platform_middle"), i, 0);
+			this.tileGroup.set(new Tile2("platform_middle"), i, 0);
 		}
 	}
 	

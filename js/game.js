@@ -5,12 +5,11 @@ console.log("Game\nVersion " + version);
 // Game-wide variables
 
 // Creating tiles with and without animation
-let cursor = new Tile2("cursor2");
-let error = new Tile2("error");
-let tree = new Tile(["tree", "grass1", "grass2", "grass3"]);
-let exampleWalls = new Tile(["s_topleft","s_top","s_topright","s_left","s_right","s_bottomleft","s_bottom","s_bottomright","s_angle_topleft","s_angle_topright","s_angle_bottomleft","s_angle_bottomright","s_decor_center","s_decor_bottomright","s_decor_bottomleft","s_decor_topright","s_decor_topleft"]);
-let character = new Tile(["char_a_stand_l","char_a_walk1_l","char_a_walk2_l","char_a_jump_l","char_a_fall_l","char_a_sleep_l"]);
-let characterWalk = new Tile(["char_a_walk1_l","char_a_walk2_l"]);
+let cursor;
+let error;
+let tree;
+let character;
+let characterWalk;
 
 // Manually creating TileGroups
 let group = new TileGroup(2, 3);
@@ -25,6 +24,8 @@ var wallArr = [
 ];
 let wallGroup = new TileGroup(wallArr);
 
+let platform;
+let platform2;
 // Creating TileStrings
 var str = "asdf ASDF :.% *Error";
 let string = new TileString(str);
@@ -32,14 +33,12 @@ var str2 = "This is a very long string that should be split into multiple lines.
 let multiline = new TileString(str2, 20);
 
 // Creating Props
-let ladder = new Ladder(480, 224, 5);
-let grass2 = new Decor(520, 224, "s_decor_grass");
-let sign = new Decor(550, 224, "s_sign1");
-let spring = new Spring(608, 224);
+let ladder;
+let grass2;
+let sign;
+let spring;
 
-var destinations = [[640, 256], [720, 256]];
-let platform = new Platform(640, 256, 3, destinations, 1, 40);
-let platform2 = new Platform(816, 256, 2);
+
 
 // Working with BlobFactories
 var blobArr = [[1,1,0,1,0], [0,1,1,1,0], [2,1,1,1,2], [1,0,2,1,1], [1,0,0,1,0], [1,1,1,0,1], [1,1,1,1,0], [2,1,1,0,1]];
@@ -55,6 +54,19 @@ let tile2 = new Tile2('error');
 let tile3 = new Tile2(['error', 'tree']);
 
 function initialize() {
+	ladder = new Ladder(480, 224, 5);
+	var destinations = [[640, 256], [720, 256]];
+	platform = new Platform(640, 256, 3, destinations, 1, 40);
+	platform2 = new Platform(816, 256, 2);
+	grass2 = new Decor(520, 224, "grass");
+	sign = new Decor(550, 224, "sign1");
+	spring = new Spring(608, 224);
+	
+	cursor = new Tile2("cursor2");
+	error = new Tile2("error");
+	tree = new Tile("tree");
+	character = new Tile2(["char_a_stand_l","char_a_walk1_l","char_a_walk2_l","char_a_jump_l","char_a_fall_l","char_a_sleep_l"]);
+	characterWalk = new Tile2(["char_a_walk1_l","char_a_walk2_l"]);
 	
 	shape1 = new Shape(100, 200);
 	
@@ -90,10 +102,7 @@ function draw() {
 	
 	tree.step();
 	tree.draw(48, 16);
-	
-	exampleWalls.step();
-	exampleWalls.draw(16, 16);
-	
+		
 	character.step();
 	character.draw(112, 16);
 	characterWalk.step();

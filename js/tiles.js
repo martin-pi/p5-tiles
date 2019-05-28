@@ -33,6 +33,9 @@ class Tile2 {
 			this.sprite = new Sprite(spriteCollection.get(sprite), selection);
 			this.spriteX = this.sprite.position.x;
 			this.spriteY = this.sprite.position.y;
+			//console.log(sprite + " Collision Type " + this.sprite.collisionType);
+			this.collisionType = this.sprite.collisionType;
+			this.collider = this.sprite.collider;
 		} else {
 			console.error("Error: '" + sprite + "' is not a valid sprite name.");
 		}
@@ -64,6 +67,12 @@ class Tile2 {
 			stroke(330, 60, 90, 100);
 			rect(x, y, tileWidth * scale, tileHeight * scale);
 			pop();
+			
+			push();
+			if (typeof this.collider !== 'undefined') {
+				this.collider.draw(x, y);
+			}
+			pop();
 		}
 	}
 	
@@ -87,66 +96,66 @@ class Tile2 {
 
 /* Maps the 47 blob tile values to positions in blob.png */
 let blob = new Map();
-blob.set(16, [[0, 32]]);
-blob.set(28, [[1, 32], [20, 3]]);
-blob.set(124, [[2, 32]]);
-blob.set(112, [[3, 32], [21, 3]]);
-blob.set(20, [[4, 32], [20, 3]]);
-blob.set(84, [[5, 32]]);
-blob.set(80, [[6, 32], [21, 3]]);
-blob.set(247, [[7, 32]]);
-blob.set(215, [[8, 32]]);
-blob.set(223, [[9, 32]]);
+blob.set(16, [[0, 32]]);//
+blob.set(28, [[1, 32], [20, 3]]);//
+blob.set(124, [[2, 32]]);//
+blob.set(112, [[3, 32], [21, 3]]);//
+blob.set(20, [[4, 32], [20, 3]]);//
+blob.set(84, [[5, 32]]);//
+blob.set(80, [[6, 32], [21, 3]]);//
+blob.set(247, [[7, 32]]);//
+blob.set(215, [[8, 32]]);//
+blob.set(223, [[9, 32]]);//
 
-blob.set(17, [[0, 33]]);
-blob.set(31, [[1, 33]]);
-blob.set(255, [[2, 33]]);
-blob.set(241, [[3, 33]]);
-blob.set(21, [[4, 33]]);
-blob.set(0, [[5, 33]]);
-blob.set(81, [[6, 33]]);
-blob.set(245, [[7, 33]]);
-blob.set(85, [[8, 33]]);
-blob.set(95, [[9, 33]]);
+blob.set(17, [[0, 33]]);//
+blob.set(31, [[1, 33]]);//
+blob.set(255, [[2, 33]]);//
+blob.set(241, [[3, 33]]);//
+blob.set(21, [[4, 33]]);//
+blob.set(0, [[5, 33]]);//
+blob.set(81, [[6, 33]]);//
+blob.set(245, [[7, 33]]);//
+blob.set(85, [[8, 33]]);//
+blob.set(95, [[9, 33]]);//
 
-blob.set(1, [[0, 34]]);
-blob.set(7, [[1, 34], [20, 4]]);
-blob.set(199, [[2, 34]]);
-blob.set(193, [[3, 34], [21, 4]]);
-blob.set(5, [[4, 34], [20, 4]]);
-blob.set(69, [[5, 34]]);
-blob.set(65, [[6, 34], [21, 4]]);
-blob.set(253, [[7, 34]]);
-blob.set(125, [[8, 34]]);
-blob.set(127, [[9, 34]]);
+blob.set(1, [[0, 34]]);//
+blob.set(7, [[1, 34], [20, 4]]);//
+blob.set(199, [[2, 34]]);//
+blob.set(193, [[3, 34], [21, 4]]);//
+blob.set(5, [[4, 34], [20, 4]]);//
+blob.set(69, [[5, 34]]);//
+blob.set(65, [[6, 34], [21, 4]]);//
+blob.set(253, [[7, 34]]);//
+blob.set(125, [[8, 34]]);//
+blob.set(127, [[9, 34]]);//
 
-blob.set(4, [[1, 35]]);
-blob.set(68, [[2, 35]]);
-blob.set(64, [[3, 35]]);
-blob.set(116, [[4, 35]]);
-blob.set(209, [[5, 35]]);
-blob.set(23, [[6, 35]]);
-blob.set(92, [[7, 35]]);
-blob.set(213, [[8, 35]]);
-blob.set(87, [[9, 35]]);
+blob.set(4, [[1, 35]]);//
+blob.set(68, [[2, 35]]);//
+blob.set(64, [[3, 35]]);//
+blob.set(116, [[4, 35]]);//
+blob.set(209, [[5, 35]]);//
+blob.set(23, [[6, 35]]);//
+blob.set(92, [[7, 35]]);//
+blob.set(213, [[8, 35]]);//
+blob.set(87, [[9, 35]]);//
 
-blob.set(221, [[2, 36]]);
-blob.set(119, [[3, 36]]);
-blob.set(29, [[4, 36]]);
-blob.set(71, [[5, 36]]);
-blob.set(197, [[6, 36]]);
-blob.set(113, [[7, 36]]);
-blob.set(117, [[8, 36]]);
-blob.set(93, [[9, 36]]);
+blob.set(221, [[2, 36]]);//
+blob.set(119, [[3, 36]]);//
+blob.set(29, [[4, 36]]);//
+blob.set(71, [[5, 36]]);//
+blob.set(197, [[6, 36]]);//
+blob.set(113, [[7, 36]]);//
+blob.set(117, [[8, 36]]);//
+blob.set(93, [[9, 36]]);//
 
 /* Maps a tile name to the position of that tile in sprites.png */
 let tiles = new Map();
-tiles.set("error", [23, 0]);
+tiles.set("error", [23, 0]);//
 tiles.set("cursor1", [19 ,22]);
-tiles.set("cursor2", [20 ,22]);
+tiles.set("cursor2", [20 ,22]);//
 tiles.set("cursor3", [21 ,22]);
 tiles.set("cursor4", [22 ,22]);
-tiles.set("empty", [0, 0]);
+tiles.set("empty", [0, 0]);//
 
 tiles.set(" ", [0, 0]);
 tiles.set("0", [19, 29]);
@@ -196,7 +205,7 @@ tiles.set("pavingstones", [4, 0]);
 tiles.set("grass2", [5, 0]);
 tiles.set("flowers", [6, 0]);
 tiles.set("grass3", [7, 0]);
-tiles.set("tree", [0, 1]);
+tiles.set("tree", [0, 1]);//
 
 tiles.set("s_topleft", [18, 0]);
 tiles.set("s_top", [19, 0]);
@@ -210,9 +219,9 @@ tiles.set("s_angle_topleft", [20, 3]);
 tiles.set("s_angle_topright", [21, 3]);
 tiles.set("s_angle_bottomleft", [20, 4]);
 tiles.set("s_angle_bottomright", [21, 4]);
-tiles.set("s_platform_left", [21, 6]);
-tiles.set("s_platform_middle", [22, 6]);
-tiles.set("s_platform_right", [23, 6]);
+tiles.set("s_platform_left", [21, 6]);//
+tiles.set("s_platform_middle", [22, 6]);//
+tiles.set("s_platform_right", [23, 6]);//
 
 tiles.set("s_decor_center", [19, 1]);
 tiles.set("s_decor_bottomright", [18, 3]);
@@ -220,32 +229,31 @@ tiles.set("s_decor_bottomleft", [19, 3]);
 tiles.set("s_decor_topright", [18, 4]);
 tiles.set("s_decor_topleft", [19, 4]);
 
-tiles.set("s_ladder", [21, 1]);
-tiles.set("s_ladder_top", [21, 0]);
-tiles.set("s_spikes", [22, 0]);
-tiles.set("s_sign1", [0, 7]);
-tiles.set("s_sign2", [1, 7]);
-tiles.set("s_flag", [17, 9]);
-tiles.set("s_coin", [22, 4]);
-tiles.set("s_gem", [23, 4]);
-tiles.set("s_spring1", [21, 5]);
-tiles.set("s_spring2", [22, 5]);
-tiles.set("s_spring3", [23, 5]);
+tiles.set("s_ladder", [21, 1]);//
+tiles.set("s_ladder_top", [21, 0]);//
+tiles.set("s_spikes", [22, 0]);//
+tiles.set("s_sign1", [0, 7]);//
+tiles.set("s_sign2", [1, 7]);//
+tiles.set("s_flag", [17, 9]);//
+tiles.set("s_coin", [22, 4]);//
+tiles.set("s_gem", [23, 4]);//
+tiles.set("s_spring1", [21, 5]);//
+tiles.set("s_spring2", [22, 5]);//
+tiles.set("s_spring3", [23, 5]);//
+tiles.set("s_decor_grass", [21, 2]);//
 
-tiles.set("s_decor_grass", [21, 2]);
-
-tiles.set("char_a_stand_r", [18, 7]);
-tiles.set("char_a_walk1_r", [19, 7]);
-tiles.set("char_a_walk2_r", [20, 7]);
-tiles.set("char_a_jump_r", [21, 7]);
-tiles.set("char_a_fall_r", [22, 7]);
-tiles.set("char_a_sleep_r", [23, 7]);
-tiles.set("char_a_stand_l", [10, 32]);
-tiles.set("char_a_walk1_l", [11, 32]);
-tiles.set("char_a_walk2_l", [12, 32]);
-tiles.set("char_a_jump_l", [13, 32]);
-tiles.set("char_a_fall_l", [14, 32]);
-tiles.set("char_a_sleep_l", [15, 32]);
+tiles.set("char_a_stand_r", [18, 7]);//
+tiles.set("char_a_walk1_r", [19, 7]);//
+tiles.set("char_a_walk2_r", [20, 7]);//
+tiles.set("char_a_jump_r", [21, 7]);//
+tiles.set("char_a_fall_r", [22, 7]);//
+tiles.set("char_a_sleep_r", [23, 7]);//
+tiles.set("char_a_stand_l", [10, 32]);//
+tiles.set("char_a_walk1_l", [11, 32]);//
+tiles.set("char_a_walk2_l", [12, 32]);//
+tiles.set("char_a_jump_l", [13, 32]);//
+tiles.set("char_a_fall_l", [14, 32]);//
+tiles.set("char_a_sleep_l", [15, 32]);//
 
 tiles.set("char_b_stand", [18, 8]);
 tiles.set("char_b_walk1", [19, 8]);

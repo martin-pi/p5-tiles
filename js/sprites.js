@@ -46,6 +46,311 @@ let SpriteJson = [
 			collision: 'solid'
 		}]
 	},
+	{
+		name: 'ladder',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:21, y:1}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'ladder_top',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:21, y:0}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0, y:0.2}, {x:1, y:0.2}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'spikes',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:22, y:0}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0, y:0.2}, {x:1, y:0.2}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'sign1',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:0, y:7}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'sign2',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:1, y:7}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'flag',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:17, y:9}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'coin',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:22, y:4}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'gem',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:23, y:4}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'grass',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:21, y:2}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 1,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'spring1',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:21, y:5}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0, y:0.5}, {x:1, y:0.5}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'spring2',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:22, y:5}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0, y:0.25}, {x:1, y:0.25}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'spring3',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:23, y:5}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:1}, {x:0, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'platform_left',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:21, y:6}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:1, y:0.5}, {x:0.5, y:0.5}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'platform_middle',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:22, y:6}],
+		colliders: [{
+			type: 'aabb',
+			width: 1,
+			height: 0.5,
+			collision: 'none'
+		}]
+	},
+	{
+		name: 'platform_right',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:23, y:6}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0, y:0}, {x:1, y:0}, {x:0.5, y:0.5}, {x:0, y:0.5}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_stand_r',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:18, y:7}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_walk1_r',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:19, y:7}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_walk2_r',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:20, y:7}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_jump_r',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:21, y:7}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_fall_r',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:22, y:7}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_sleep_r',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:23, y:7}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_stand_l',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:10, y:32}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_walk1_l',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:11, y:32}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_walk2_l',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:12, y:32}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_jump_l',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:13, y:32}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_fall_l',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:14, y:32}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
+	{
+		name: 'char_a_sleep_l',
+		blob: -1,
+		selectionType: 'default',
+		positions: [{x:15, y:32}],
+		colliders: [{
+			type: 'shape',
+			points: [{x:0.125, y:0.25}, {x:0.875, y:0.25}, {x:0.875, y:1}, {x:0.125, y:1}],
+			collision: 'solid'
+		}]
+	},
 	//---------------------------------------------------------------
 	{
 		name: undefined,
@@ -683,16 +988,17 @@ class Sprite {
 		this.position = representation.positions[selection];
 		
 		// Create the collider that this tile uses.
+		this.collisionType = representation.colliders[selection].type;
 		switch(representation.colliders[selection].type) { 
 			case 'shape':
 				var points = new Array();
 				representation.colliders[selection].points.forEach(function(point) {
-					points.push(createVector(point.x, point.y));
+					points.push(createVector(point.x * tileWidth, point.y * tileHeight));
 				});
 				this.collider = new PositionlessShape(points);
 				break;
 			case 'aabb':
-				this.collider = new PositionlessAABB(representation.colliders[selection].width, representation.colliders[selection].height);
+				this.collider = new PositionlessAABB(representation.colliders[selection].width * tileWidth, representation.colliders[selection].height * tileHeight);
 				break;
 			case 'circle':
 				this.collider = undefined;
