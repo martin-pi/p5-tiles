@@ -38,7 +38,7 @@ let spring;
 let blobAssm;
 
 // Creating complex Characters
-let characterProp = new Character(64, 128);
+let characterProp;
 
 // Physics Colliders
 let aabb1 = new AABB(128, 128, 64, 32);
@@ -78,6 +78,10 @@ function initialize() {
 	
 	var blobArr = [[1,1,0,1,0], [0,1,1,1,0], [2,1,1,1,2], [1,0,2,1,1], [1,0,0,1,0], [1,1,1,0,1], [1,1,1,1,0], [2,1,1,0,1]];
 	blobAssm = new BlobFactory(blobArr); // This is a TileGroup, not a prop or BlobFactory!
+
+	// Creating complex Characters
+	characterProp = new Character(64, 128);
+
 }
 
 // ------------------------------------------------------------------------------------------------
